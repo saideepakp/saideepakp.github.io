@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail — Interstellar Portfolio</title>
+    <link rel="stylesheet" href="index1_style.css">
+    <style>
+        /* ── Grid/graph paper background override ── */
+        body {
+            background:
+                linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, #000000, #1f2937, #000000);
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+        }
+
+        /* ── Page Header ── */
+        .project-detail-header {
+            text-align: center;
+            padding: 3rem 1.5rem 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #e5e7eb;
+            transform: translateX(-3px);
+        }
+
+        .project-detail-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: bold;
+            background: linear-gradient(to right, #22d3ee, #f3f4f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.4rem;
+        }
+
+        .project-detail-tag {
+            display: inline-flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 0.6rem;
+        }
+
+        .detail-tag {
+            font-size: 0.72rem;
+            padding: 3px 12px;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            color: #67e8f9;
+        }
+
+        /* ── Main two-column layout ── */
+        .project-detail-body {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            gap: 1.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem 5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ── Shared box style ── */
+        .detail-box {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            padding: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .detail-box:hover {
+            border-color: rgba(34, 211, 238, 0.2);
+        }
+
+        .detail-box-title {
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(34, 211, 238, 0.85);
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-box-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(34, 211, 238, 0.25), transparent);
+        }
+
+        .detail-box p,
+        .detail-box li {
+            color: #9ca3af;
+            font-size: 0.88rem;
+            line-height: 1.75;
+        }
+
+        .detail-box ul {
+            padding-left: 1.1rem;
+            margin: 0;
+        }
+
+        .detail-box li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* ── Left column stacking ── */
+        .left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* ── Right column stacking ── */
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* ════════════════════════════
+           SLIDESHOW
+        ════════════════════════════ */
+        .slideshow-box {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .slideshow-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: rgba(0,0,0,0.4);
+            border-radius: 14px 14px 0 0;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.7s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Placeholder slide (remove when you add real images) */
+        .slide-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #4b5563;
+            font-size: 0.85rem;
+        }
+
+        .slide-placeholder span {
+            font-size: 2.5rem;
+        }
+
+        .slide-placeholder.c1 { background: linear-gradient(135deg, rgba(8,145,178,0.15), rgba(6,182,212,0.05)); }
+        .slide-placeholder.c2 { background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.05)); }
+        .slide-placeholder.c3 { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.05)); }
+
+        /* Prev / Next arrows */
+        .slide-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.45);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e5e7eb;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 5;
+            transition: all 0.2s ease;
+        }
+
+        .slide-arrow:hover {
+            background: rgba(34, 211, 238, 0.2);
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+
+        .slide-arrow.prev { left: 12px; }
+        .slide-arrow.next { right: 12px; }
+
+        /* Slideshow footer: dots + autoplay toggle */
+        .slideshow-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.2rem;
+            background: rgba(0,0,0,0.25);
+            border-radius: 0 0 14px 14px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .slide-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .dot.active {
+            background: #22d3ee;
+            box-shadow: 0 0 6px rgba(34, 211, 238, 0.6);
+        }
+
+        .autoplay-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            color: #6b7280;
+            cursor: pointer;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 999px;
+            padding: 3px 10px;
+            transition: all 0.2s ease;
+        }
+
+        .autoplay-btn:hover {
+            color: #22d3ee;
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .autoplay-btn.playing {
+            color: #22d3ee;
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        /* ── Dataset details table style ── */
+        .dataset-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .dataset-item {
+            background: rgba(34, 211, 238, 0.04);
+            border: 1px solid rgba(34, 211, 238, 0.1);
+            border-radius: 8px;
+            padding: 0.6rem 0.9rem;
+        }
+
+        .dataset-label {
+            font-size: 0.68rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 3px;
+        }
+
+        .dataset-value {
+            font-size: 0.88rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* ── Results ── */
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 0.25rem;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 0.6rem 0.9rem;
+            background: rgba(34, 211, 238, 0.04);
+            border-left: 2px solid rgba(34, 211, 238, 0.4);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .result-item p {
+            margin: 0;
+            font-size: 0.86rem;
+            color: #9ca3af;
+        }
+
+        .result-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.1);
+            color: #22d3ee;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .project-detail-body {
+                grid-template-columns: 1fr;
+            }
+            .dataset-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .dataset-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .slideshow-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.slideshow-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.slideshow-btn.primary {
+    background: rgba(34, 211, 238, 0.95);
+    color: #020617;
+}
+
+.slideshow-btn.primary:hover {
+    box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+    transform: translateY(-2px);
+}
+
+.slideshow-btn.secondary {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #e2e8f0;
+}
+
+.slideshow-btn.secondary:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+}
+    </style>
+</head>
+<body>
+    <!-- Starfield -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Orbital Rings removed for cleaner feel with grid bg -->
+
+    <!-- Page Header -->
+    <div class="project-detail-header">
+        <div>
+            <a href="projects.html" class="back-btn">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M19 12H5M12 5l-7 7 7 7"/>
+                </svg>
+                Back to Projects
+            </a>
+            <a href="Experience_Page.html" class="back-btn">
+    View Experience
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+</a>
+        </div>
+       
+        <h1 class="project-detail-title">BMW Sales Dashboard</h1>
+        <div class="project-detail-tag">
+            <span class="detail-tag">Power BI</span>
+            <span class="detail-tag">Excel</span>
+
+        </div>
+    </div>
+
+    <!-- Two-column body -->
+    <div class="project-detail-body">
+
+        <!-- ═══ LEFT COLUMN (40%) ═══ -->
+        <div class="left-col">
+
+            <!-- About the Project -->
+            <div class="detail-box">
+                <div class="detail-box-title">About the Project</div>
+                <p>A Power BI dashboard engineered to analyze BMW's global sales performance from 2010 to 2024. Built on a Kaggle dataset,
+                   the project covers the full analytical pipeline from Power Query transformations to DAX-driven KPIs, delivering an interactive intelligence layer across 50,000 sales records.</p>
+            </div>
+
+            <!-- Problem Statement -->
+            <div class="detail-box">
+                <div class="detail-box-title">Problem Statement</div>
+                <p>Static reports couldn't surface the patterns hidden inside BMW's sales data. The business lacked a unified view to answer critical questions around model performance, regional contribution,
+                   buyer preferences, and year-over-year trends, leaving strategy, inventory, and marketing decisions without a data foundation.</p>
+            </div>
+
+            <!-- Output Interpretation -->
+            <div class="detail-box">
+                <div class="detail-box-title">Output Interpretation</div>
+                <p>The dashboard surfaces insights across multiple focused views, with key indicators including:
+</p>
+                <ul style="margin-top: 0.6rem;">
+                    <li>50K total sales recorded across the full 14-year period</li>
+                    <li>7 Series ranked as the highest sold model at 9.33% share</li>
+                    <li>Asia leading all regions at 16.91% of total sales</li>
+                    <li>2022 recorded as the peak sales year</li>
+                    <li>Hybrid leading fuel type sales at 12.7K, followed by Petrol, Electric, and Diesel</li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- ═══ RIGHT COLUMN (60%) ═══ -->
+        <div class="right-col">
+
+            <!-- Slideshow -->
+            <div class="detail-box slideshow-box">
+                <div class="slideshow-wrapper" id="slideshowWrapper">
+
+                    <!-- Slide 1 — replace div with <img src="..." /> when ready -->
+                    <div class="slide active">
+                        <img src="./BMW sales/ss1.png" alt="BMW Sales Dashboard - Slide 1" class="title-image">
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="slide">
+                        <img src="./BMW sales/ss2.png" alt="BMW Sales Dashboard - Slide 2" class="title-image">
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="slide">
+                        <img src="./BMW sales/ss3.png" alt="BMW Sales Dashboard - Slide 3" class="title-image">
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="slide">
+                        <img src="./BMW sales/ss4.png" alt="BMW Sales Dashboard - Slide 4" class="title-image">
+                    </div>
+
+                    <!-- Arrows -->
+                    <button class="slide-arrow prev" onclick="changeSlide(-1)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button class="slide-arrow next" onclick="changeSlide(1)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                </div>
+
+                <!-- Dots + autoplay toggle -->
+                <div class="slideshow-footer">
+                    <div class="slide-dots" id="slideDots"></div>
+                    <button class="autoplay-btn playing" id="autoplayBtn" onclick="toggleAutoplay()">
+                        <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24" id="autoplayIcon">
+                            <path d="M6 4h4v16H6zM14 4h4v16h-4z"/>
+                        </svg>
+                        <span id="autoplayLabel">Pause</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="slideshow-btns">
+                <a href="./BMW sales/BMWSalesDashboard_Recording.mp4" class="slideshow-btn primary" target="_blank">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    Live Report
+                </a>
+                <a href="https://github.com/saideepakp/BMW-Sales-PowerBI-Dashboards" class="slideshow-btn secondary" target="_blank">
+                    <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                    </svg>
+                    View Project
+                </a>
+            </div>
+
+            <!-- Dataset Details 
+            <div class="detail-box">
+                <div class="detail-box-title">Dataset Details</div>
+                <div class="dataset-grid">
+                    <div class="dataset-item">
+                        <div class="dataset-label">Source</div>
+                        <div class="dataset-value">Your data source</div>
+                    </div>
+                    <div class="dataset-item">
+                        <div class="dataset-label">Records</div>
+                        <div class="dataset-value">00,000 rows</div>
+                    </div>
+                    <div class="dataset-item">
+                        <div class="dataset-label">Features</div>
+                        <div class="dataset-value">00 columns</div>
+                    </div>
+                    <div class="dataset-item">
+                        <div class="dataset-label">Time Period</div>
+                        <div class="dataset-value">YYYY – YYYY</div>
+                    </div>
+                    <div class="dataset-item">
+                        <div class="dataset-label">Format</div>
+                        <div class="dataset-value">CSV / SQL / API</div>
+                    </div>
+                    <div class="dataset-item">
+                        <div class="dataset-label">Tools Used</div>
+                        <div class="dataset-value">Python, SQL</div>
+                    </div>
+                </div>
+            </div>-->
+
+            <!-- Results 
+            <div class="detail-box">
+                <div class="detail-box-title">Results</div>
+                <div class="results-list">
+                    <div class="result-item">
+                        <span class="result-badge">Accuracy</span>
+                        <p>Describe the accuracy or performance metric achieved here.</p>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-badge">Impact</span>
+                        <p>Describe the business or analytical impact of the project.</p>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-badge">Insight</span>
+                        <p>Share a key insight or finding that came out of the analysis.</p>
+                    </div>
+                </div>
+            </div>-->
+
+        </div>
+    </div>
+
+    <script>
+        // ── Starfield ──
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = Math.random() * 3 + 2 + 's';
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+            starfield.appendChild(star);
+        }
+
+        // ── Slideshow ──
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('slideDots');
+        let current = 0;
+        let autoplayInterval = null;
+        let isPlaying = true;
+
+        // Build dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        });
+
+        function goToSlide(n) {
+            slides[current].classList.remove('active');
+            dotsContainer.children[current].classList.remove('active');
+            current = (n + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dotsContainer.children[current].classList.add('active');
+        }
+
+        function changeSlide(dir) {
+            goToSlide(current + dir);
+        }
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(() => changeSlide(1), 3000);
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        function toggleAutoplay() {
+            const btn = document.getElementById('autoplayBtn');
+            const icon = document.getElementById('autoplayIcon');
+            const label = document.getElementById('autoplayLabel');
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                startAutoplay();
+                btn.classList.add('playing');
+                label.textContent = 'Pause';
+                icon.innerHTML = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+            } else {
+                stopAutoplay();
+                btn.classList.remove('playing');
+                label.textContent = 'Play';
+                icon.innerHTML = '<path d="M5 3l14 9-14 9V3z"/>';
+            }
+        }
+
+        // Start autoplay on load
+        startAutoplay();
+    </script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Experience — Interstellar Portfolio</title>
+    <link rel="stylesheet" href="index1_style.css">
+    <style>
+        .experience-page-header {
+            text-align: center;
+            padding: 4rem 1.5rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #e5e7eb;
+            transform: translateX(-3px);
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: bold;
+            background: linear-gradient(to right, #22d3ee, #f3f4f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #c2c2c4;
+            font-size: 0.95rem;
+            letter-spacing: 0.06em;
+            margin-bottom: 0;
+        }
+
+        /* Timeline container */
+        .timeline-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 5rem;
+        }
+
+        /* Vertical line */
+        .timeline-wrapper::before {
+            content: '';
+            position: absolute;
+            left: calc(1.5rem + 19px);
+            top: 1rem;
+            bottom: 5rem;
+            width: 1px;
+            background: linear-gradient(to bottom,
+                rgba(34, 211, 238, 0.5),
+                rgba(34, 211, 238, 0.1) 80%,
+                transparent
+            );
+        }
+
+        /* Each experience block */
+        .exp-block {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            animation: fadeSlideIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .exp-block:nth-child(1) { animation-delay: 0.1s; }
+        .exp-block:nth-child(2) { animation-delay: 0.2s; }
+        .exp-block:nth-child(3) { animation-delay: 0.3s; }
+        .exp-block:nth-child(4) { animation-delay: 0.4s; }
+        .exp-block:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateX(-12px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Dot on the timeline */
+        .exp-dot {
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(8, 145, 178, 0.12);
+            border: 1px solid rgba(34, 211, 238, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+
+        .exp-dot svg {
+            width: 16px;
+            height: 16px;
+            color: #22d3ee;
+        }
+
+        /* Card */
+        .exp-card {
+            flex: 1;
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            padding: 1.25rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .exp-card:hover {
+            border-color: rgba(34, 211, 238, 0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 18px rgba(34, 211, 238, 0.06);
+            transform: translateX(4px);
+        }
+
+        .exp-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.4rem;
+        }
+
+        .exp-job-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .exp-years {
+            font-size: 0.75rem;
+            color: #22d3ee;
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 999px;
+            padding: 2px 10px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .exp-company {
+            font-size: 0.82rem;
+            color: #c6c6c7;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .exp-company::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #22d3ee;
+            opacity: 0.6;
+        }
+
+        .exp-desc {
+            font-size: 0.82rem;
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .timeline-wrapper::before {
+                left: calc(1.5rem + 15px);
+            }
+            .exp-dot {
+                width: 30px;
+                height: 30px;
+            }
+            .exp-dot svg {
+                width: 13px;
+                height: 13px;
+            }
+        }
+        /* Tooltip */
+/*.tooltip {
+    position: fixed;
+    background: rgba(10, 20, 35, 0.95);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    max-width: 10000px;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 16px rgba(34, 211, 238, 0.08);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tooltip-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #22d3ee;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.04em;
+}
+
+.tooltip-text {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    line-height: 1.6;
+}*/
+    </style>
+</head>
+<body>
+    <!-- Starfield -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Light Rays -->
+    <div class="light-rays">
+        <div class="ray-container left">
+            <svg width="256" height="256">
+                <defs>
+                    <linearGradient id="whiteGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <path d="M 0,50 L 120,30 L 0,10" stroke="url(#whiteGradient1)" stroke-width="3" fill="none" class="ray-path"/>
+            </svg>
+        </div>
+        <div class="ray-container right">
+            <svg width="256" height="256">
+                <defs>
+                    <linearGradient id="whiteGradient2" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <path d="M 256,50 L 136,70 L 256,90" stroke="url(#whiteGradient2)" stroke-width="3" fill="none" class="ray-path"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Orbital Rings -->
+    <div class="orbital-ring ring1"></div>
+    <div class="orbital-ring ring2"></div>
+
+    <!-- Page Header -->
+    <div class="experience-page-header">
+        <div>
+            <a href="index.html#about" class="back-btn">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M19 12H5M12 5l-7 7 7 7"/>
+                </svg>
+                Back to Portfolio
+            </a>
+            <a href="projects.html" class="back-btn">
+    Projects
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+</a>
+        </div>
+        <h1 class="page-title">Employment</h1>
+        <p class="page-subtitle">My professional journey so far</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-wrapper">
+
+        <div class="exp-block">
+            <div class="exp-dot">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+            </div>
+            <div class="exp-card"
+                    <!--data-title="Data Analyst"
+                    <!--data-tip="Your detailed description goes here.">
+                <div class="exp-top">
+                    <div class="exp-job-title">Data Analyst</div>
+                    <span class="exp-years">Mar 2024 — Present</span>
+                </div>
+                <div class="exp-company">University of Illinois at Chicago</div>
+                <p class="exp-desc">
+                    Analyzed 5,900+ refugee records to study employment outcomes among disabled refugees using Power BI for visualization and logistic regression models achieving over 75% predictive accuracy, uncovering key predictors like gender, age, and healthcare access to support inclusive policy recommendations.
+                </p>
+            </div>
+        </div>
+
+        <div class="exp-block">
+            <div class="exp-dot">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+            </div>
+            <div class="exp-card"
+                    <!--data-title="Data Analyst Intern"
+                    <!--data-tip="Your detailed description goes here.">
+                <div class="exp-top">
+                    <div class="exp-job-title">Data Analyst Intern</div>
+                    <span class="exp-years">Dec 2024 — May 2025</span>
+                </div>
+                <div class="exp-company">CCC Intelligent Solutions</div>
+                <p class="exp-desc">Analyzed 5,000+ car damage images across 6 damage types, fine tuned Stable Diffusion 1.5 via LoRA to generate synthetic training data, and evaluated model performance using FID scores, delivering insights through Tableau dashboards to support scalable computer vision workflows.</p>
+            </div>
+        </div>
+
+        <div class="exp-block">
+            <div class="exp-dot">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+            </div>
+            <div class="exp-card"
+                    <!--data-title="Business Analytics Instructor"
+                    <!--data-tip="Write a good description.">
+                <div class="exp-top">
+                    <div class="exp-job-title">Business Analytics Instructor</div>
+                    <span class="exp-years">Aug 2024 — Dec 2024</span>
+                </div>
+                <div class="exp-company">University of Illinois at Chicago</div>
+                <p class="exp-desc">Conducted weekly workshops for 30+ students on Power BI, Tableau, SQL, and Excel, designing hands-on assignments in workforce analytics while providing personalized feedback and partnering with faculty to continuously improve course content and student outcomes.</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="tooltip" id="tooltip">
+    <div class="tooltip-title" id="tooltip-title"></div>
+    <div class="tooltip-text" id="tooltip-text"></div>
+</div>
+
+    <script>
+        // Generate starfield
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = Math.random() * 3 + 2 + 's';
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+            starfield.appendChild(star);
+        }
+
+        // Tooltip
+const tooltip = document.getElementById('tooltip');
+const tooltipTitle = document.getElementById('tooltip-title');
+const tooltipText = document.getElementById('tooltip-text');
+
+document.querySelectorAll('.exp-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        tooltipTitle.textContent = card.dataset.title;
+        tooltipText.textContent = card.dataset.tip;
+        tooltip.classList.add('visible');
+    });
+
+    card.addEventListener('mousemove', (e) => {
+        let x = e.clientX + 18;
+        let y = e.clientY + 18;
+
+        // Prevent tooltip going off right edge
+        if (x + 300 > window.innerWidth) x = e.clientX - 298;
+        // Prevent tooltip going off bottom edge
+        if (y + 150 > window.innerHeight) y = e.clientY - 130;
+
+        tooltip.style.left = x + 'px';
+        tooltip.style.top = y + 'px';
+    });
+
+    card.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('visible');
+    });
+});
+    </script>
+    
+</body>
+</html>

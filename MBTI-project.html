@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail — Interstellar Portfolio</title>
+    <link rel="stylesheet" href="index1_style.css">
+    <style>
+        /* ── Grid background ── */
+        body {
+            background:
+                linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, #000000, #1f2937, #000000);
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+        }
+
+        /* ── Page Header ── */
+        .project-detail-header {
+            text-align: center;
+            padding: 3rem 1.5rem 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #e5e7eb;
+            transform: translateX(-3px);
+        }
+
+        .project-detail-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: bold;
+            background: linear-gradient(to right, #22d3ee, #f3f4f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.4rem;
+        }
+
+        .project-detail-tag {
+            display: inline-flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 0.6rem;
+        }
+
+        .detail-tag {
+            font-size: 0.72rem;
+            padding: 3px 12px;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            color: #67e8f9;
+        }
+
+        /* ── Two-column 50/50 layout ── */
+        .project-detail-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem 5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ── Shared box style ── */
+        .detail-box {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            padding: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .detail-box:hover {
+            border-color: rgba(34, 211, 238, 0.2);
+        }
+
+        .detail-box-title {
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(34, 211, 238, 0.85);
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-box-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(34, 211, 238, 0.25), transparent);
+        }
+
+        .detail-box p,
+        .detail-box li {
+            color: #9ca3af;
+            font-size: 0.88rem;
+            line-height: 1.75;
+        }
+
+        .detail-box ul {
+            padding-left: 1.1rem;
+            margin: 0;
+        }
+
+        .detail-box li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* ── Columns ── */
+        .left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* ── Results ── */
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 0.6rem 0.9rem;
+            background: rgba(34, 211, 238, 0.04);
+            border-left: 2px solid rgba(34, 211, 238, 0.4);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .result-item p {
+            margin: 0;
+            font-size: 0.86rem;
+            color: #9ca3af;
+        }
+
+        .result-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.1);
+            color: #22d3ee;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ── View Code Button ── */
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .action-btn.primary {
+            background: rgba(34, 211, 238, 0.95);
+            color: #020617;
+        }
+
+        .action-btn.primary:hover {
+            box-shadow: 0 0 22px rgba(34, 211, 238, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #e2e8f0;
+        }
+
+        .action-btn.secondary:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .project-detail-body {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Page Header -->
+    <div class="project-detail-header">
+        <div>
+            <a href="projects.html" class="back-btn">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M19 12H5M12 5l-7 7 7 7"/>
+                </svg>
+                Back to Projects
+            </a>
+            <a href="Experience_Page.html" class="back-btn">
+    View Experience
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+</a>
+        </div>
+        <h1 class="project-detail-title">MBTI Personality Classification Using Machine Learning</h1>
+        <div class="project-detail-tag">
+            <span class="detail-tag">Python</span>
+            <span class="detail-tag">Excel</span>
+        </div>
+    </div>
+
+    <!-- Two-column body -->
+    <div class="project-detail-body">
+
+        <!-- ═══ LEFT COLUMN ═══ -->
+        <div class="left-col">
+
+            <!-- About the Project -->
+            <div class="detail-box">
+                <div class="detail-box-title">About the Project</div>
+                <p>This project applies machine learning to automate MBTI personality type classification using 60,000 structured survey responses across 60 numerically encoded behavioral questions. Five classification models were built, tuned through grid search hyperparameter optimization, and evaluated across accuracy, precision, recall, F1-score, and cross-validation to identify the most reliable classifier for 16-class personality prediction.</p>
+            </div>
+
+            <!-- Problem Statement -->
+            <div class="detail-box">
+                <div class="detail-box-title">Problem Statement</div>
+                <p>Manually administering and scoring MBTI assessments is slow, subjective, and impractical at scale. Organizations in human resources, education, and behavioral research need faster, more reliable methods to derive personality insights from structured data. The goal was to build a multi-class machine learning framework capable of accurately classifying individuals into one of 16 MBTI personality types using survey data, while determining which algorithms generalize best and which questions carry the most predictive weight.</p>
+            </div>
+
+        </div>
+
+        <!-- ═══ RIGHT COLUMN ═══ -->
+        <div class="right-col">
+
+            <!-- Output Interpretation -->
+            <div class="detail-box">
+                <div class="detail-box-title">Output Interpretation</div>
+                <p>Explain the final output and what it means. Help a non-technical reader understand what they are looking at.</p>
+                <ul style="margin-top: 0.6rem;">
+                    <li>KNN achieved the highest overall accuracy at 98.77% with cross-validation score of 98.59% confirming strong generalization, while SVM demonstrated the best consistency with the tightest variance at 0.11%</li>
+                    <li>Baseline stratified model scored only 6.22% accuracy, establishing a clear benchmark and validating the 16x performance improvement delivered by learned models</li>
+                    <li>Logistic Regression achieved 91.82% accuracy while Random Forest and XGBoost both reached 97.63%, providing a comprehensive performance comparison across model families</li>
+                    <li>Dichotomy level SVM binary classification across all four MBTI dimensions returned 99% precision, recall, and F1 score with accuracies ranging between 98.58% and 98.78%</li>
+                    <li>Results confirm that machine learning can reliably automate MBTI classification with near perfect accuracy on structured survey data, with practical applicability in HR, team building, educational guidance, and behavioral research</li>
+                </ul>
+            </div>
+
+           
+
+            <!-- View Code Button -->
+            <div class="action-btns">
+                <a href="https://github.com/saideepakp/MBTI-PERSONALITY-CLASSIFICATION-USING-MACHINE-LEARNING" class="action-btn primary" target="_blank">
+                    <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                    </svg>
+                    View Project
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = Math.random() * 3 + 2 + 's';
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+            starfield.appendChild(star);
+        }
+    </script>
+</body>
+</html>

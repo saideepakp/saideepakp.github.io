@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Deepak's Portfolio</title>
+    <link rel="stylesheet" href="index1_style.css">
+    <style>
+        .skills-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .skill-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 14px 6px 10px;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.06);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            color: #e2e8f0;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .skill-pill:hover {
+            background: rgba(34, 211, 238, 0.12);
+            border-color: rgba(34, 211, 238, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(34, 211, 238, 0.1);
+        }
+
+        .skill-pill-icon {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="starfield" id="starfield"></div>
+
+    <div class="light-rays">
+        <div class="ray-container left">
+            <svg width="256" height="256">
+                <defs>
+                    <linearGradient id="whiteGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <path d="M 0,50 L 120,30 L 0,10" stroke="url(#whiteGradient1)" stroke-width="3" fill="none" class="ray-path"/>
+            </svg>
+        </div>
+        <div class="ray-container right">
+            <svg width="256" height="256">
+                <defs>
+                    <linearGradient id="whiteGradient2" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <path d="M 256,50 L 136,70 L 256,90" stroke="url(#whiteGradient2)" stroke-width="3" fill="none" class="ray-path"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="orbital-ring ring1"></div>
+    <div class="orbital-ring ring2"></div>
+
+    <section class="hero">
+      <div class="hero-quote-box">
+        <p class="hero-quote">"Do not go gentle into that good night. Keep pushing forward!!"</p>
+      </div>
+    </section>
+
+    <div class="container">
+
+      <section class="about-page" id="about">
+
+        <div class="card about-card">
+          <div class="section-header">
+            <svg class="section-icon" fill="none" stroke="#22d3ee" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <h2 class="section-title">About</h2>
+          </div>
+
+          <div class="about-block">
+            <h3 class="about-subtitle">Intro</h3>
+            <p class="text-content">
+              Data without direction is just noise. I'm <b>Sai Deepak Poondla</b>. I turn that noise into narratives that drive smarter decisions. I blend analytical precision with 
+              creative thinking to uncover what the numbers are really saying, then build the story that makes leaders act on it. Fueled by relentless curiosity and a hunger to solve what others overlook.
+            </p>
+          </div>
+
+          <div class="about-block">
+            <h3 class="about-subtitle">Education</h3>
+            <p class="text-content">
+              Masters in Business Analytics — University of Illinois Chicago <br>
+              Bachelors in Mechanical Engineering — SASTRA University
+            </p>
+          </div>
+
+          <div class="about-block">
+            <h3 class="about-subtitle">Certifications</h3>
+            <ul class="about-list">
+              <li>Microsoft Power BI Data Analyst (PL-300)</li>
+              <li>McKinsey Forward Learning</li>
+            </ul>
+          </div>
+
+          <div class="about-block">
+            <h3 class="about-subtitle">Skills</h3>
+            <div class="skills-pills">
+
+              <div class="skill-pill">
+                <img class="skill-pill-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+                Python
+              </div>
+
+              <div class="skill-pill">
+                <svg class="skill-pill-icon" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.8">
+                  <ellipse cx="12" cy="6" rx="8" ry="3"/>
+                  <path d="M4 6v4c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/>
+                  <path d="M4 10v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4"/>
+                </svg>
+                SQL
+              </div>
+
+              <div class="skill-pill">
+                <img class="skill-pill-icon" src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" alt="Power BI" />
+                Power BI
+              </div>
+
+              <div class="skill-pill">
+                <svg class="skill-pill-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="24" height="24" rx="4" fill="#1D6F42"/>
+                  <path d="M13 6h7v2h-7zM13 10h7v2h-7zM13 14h7v2h-7z" fill="white"/>
+                  <path d="M4 7l3 4.5L4 17h2.5l1.75-2.8L10 17h2.5l-3-5.5L12.5 7H10L8.25 9.8 6.5 7z" fill="white"/>
+                </svg>
+                Excel
+              </div>
+
+              <div class="skill-pill">
+                <svg class="skill-pill-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Tableau-style bar chart cross icon -->
+                  <!-- Center vertical bar -->
+                  <rect x="11" y="4" width="2.5" height="16" rx="1" fill="#E97627"/>
+                  <!-- Center horizontal bar -->
+                  <rect x="4" y="11" width="16" height="2.5" rx="1" fill="#E97627"/>
+                  <!-- Top small bar -->
+                  <rect x="10.5" y="1" width="3" height="4" rx="1" fill="#E97627"/>
+                  <!-- Bottom small bar -->
+                  <rect x="10.5" y="19" width="3" height="4" rx="1" fill="#E97627"/>
+                  <!-- Left small bar -->
+                  <rect x="1" y="10.5" width="4" height="3" rx="1" fill="#E97627"/>
+                  <!-- Right small bar -->
+                  <rect x="19" y="10.5" width="4" height="3" rx="1" fill="#E97627"/>
+                  <!-- Corner small bars -->
+                  <rect x="5" y="5" width="2" height="5" rx="1" fill="#5B9BD5"/>
+                  <rect x="3" y="7" width="5" height="2" rx="1" fill="#5B9BD5"/>
+                  <rect x="17" y="5" width="2" height="5" rx="1" fill="#5B9BD5"/>
+                  <rect x="16" y="7" width="5" height="2" rx="1" fill="#5B9BD5"/>
+                  <rect x="5" y="14" width="2" height="5" rx="1" fill="#5B9BD5"/>
+                  <rect x="3" y="15" width="5" height="2" rx="1" fill="#5B9BD5"/>
+                  <rect x="17" y="14" width="2" height="5" rx="1" fill="#5B9BD5"/>
+                  <rect x="16" y="15" width="5" height="2" rx="1" fill="#5B9BD5"/>
+                </svg>
+                Tableau
+              </div>
+
+              <div class="skill-pill">
+                <svg class="skill-pill-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main vertical bar -->
+  <rect x="46" y="5" width="8" height="90" rx="4" fill="#29B5E8"/>
+  <!-- Main horizontal bar -->
+  <rect x="5" y="46" width="90" height="8" rx="4" fill="#29B5E8"/>
+  <!-- Diagonal top-left to bottom-right -->
+  <rect x="46" y="5" width="8" height="90" rx="4" fill="#29B5E8" transform="rotate(60 50 50)"/>
+  <!-- Diagonal top-right to bottom-left -->
+  <rect x="46" y="5" width="8" height="90" rx="4" fill="#29B5E8" transform="rotate(120 50 50)"/>
+  <!-- Branch tips on vertical -->
+  <rect x="32" y="18" width="20" height="6" rx="3" fill="#29B5E8"/>
+  <rect x="48" y="18" width="20" height="6" rx="3" fill="#29B5E8"/>
+  <rect x="32" y="76" width="20" height="6" rx="3" fill="#29B5E8"/>
+  <rect x="48" y="76" width="20" height="6" rx="3" fill="#29B5E8"/>
+</svg>
+                Snowflake
+              </div>
+
+            </div>
+          </div>
+
+          <div class="about-cta">
+            <a class="about-btn primary" href="projects.html">Projects</a>
+            <a class="about-btn secondary" href="Experience_Page.html">Employment</a>
+            <a class="about-btn secondary" href="./Sai Deepak_Work Resume (1).pdf" target="_blank">Resume</a>
+          </div>
+        </div>
+
+        <aside class="about-photo-panel">
+          <div class="about-photo">
+            <img src="./dipuu.jpeg" alt="Sai Deepak" />
+          </div>
+          <div class="photo-social">
+        <!-- Email / Connect -->
+        <a href="https://tally.so/r/zxDBA8" class="photo-social-btn" title="Connect">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/sai-deepak-poondla-7143ba21a/" target="_blank" class="photo-social-btn" title="LinkedIn">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/saideepakp" target="_blank" class="photo-social-btn" title="GitHub">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </a>
+      </div>
+    
+    </aside>
+
+      </section>
+
+      <!--<footer>
+        <p class="footer-quote">Connect with me</p>
+      </footer>-->
+
+    </div>
+
+    <script>
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = Math.random() * 3 + 2 + 's';
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+            starfield.appendChild(star);
+        }
+    </script>
+</body>
+</html>
