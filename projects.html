@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — Interstellar Portfolio</title>
+    <link rel="stylesheet" href="index1_style.css">
+    <style>
+        /* Projects Page Specific Styles */
+        .projects-page-header {
+            text-align: center;
+            padding: 4rem 1.5rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #e5e7eb;
+            transform: translateX(-3px);
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: bold;
+            background: linear-gradient(to right, #22d3ee, #f3f4f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #c2c2c4;
+            font-size: 0.95rem;
+            letter-spacing: 0.06em;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.25rem;
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        /* Project Tile */
+        .project-tile {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-tile:hover {
+            transform: translateY(-5px);
+            border-color: rgba(34, 211, 238, 0.3);
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(34, 211, 238, 0.08);
+        }
+
+        .tile-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+            background: linear-gradient(135deg, rgba(8,145,178,0.2), rgba(99,102,241,0.2));
+        }
+
+        /* Placeholder image with icon when no image */
+        .tile-image-placeholder {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .tile-image-placeholder.color-1 { background: linear-gradient(135deg, rgba(8,145,178,0.25), rgba(6,182,212,0.1)); }
+        .tile-image-placeholder.color-2 { background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.1)); }
+        .tile-image-placeholder.color-3 { background: linear-gradient(135deg, rgba(16,185,129,0.25), rgba(6,182,212,0.1)); }
+        .tile-image-placeholder.color-4 { background: linear-gradient(135deg, rgba(245,158,11,0.20), rgba(239,68,68,0.1)); }
+        .tile-image-placeholder.color-5 { background: linear-gradient(135deg, rgba(236,72,153,0.20), rgba(99,102,241,0.1)); }
+        .tile-image-placeholder.color-6 { background: linear-gradient(135deg, rgba(20,184,166,0.25), rgba(8,145,178,0.1)); }
+
+        .tile-body {
+            padding: 1rem 1.1rem 1.1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .tile-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            line-height: 1.3;
+        }
+
+        .tile-desc {
+            font-size: 0.78rem;
+            color: #6b7280;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .tile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .tile-tag {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.18);
+            color: #67e8f9;
+        }
+
+        @media (max-width: 600px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+            .tile-image-placeholder { height: 120px; font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Starfield -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Light Rays -->
+    <div class="light-rays">
+        <div class="ray-container left">
+            <svg width="256" height="256">
+                <defs>
+                    <linearGradient id="whiteGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <path d="M 0,50 L 120,30 L 0,10" stroke="url(#whiteGradient1)" stroke-width="3" fill="none" class="ray-path"/>
+            </svg>
+        </div>
+        <div class="ray-container right">
+            <svg width="256" height="256">
+                <defs>
+                    <linearGradient id="whiteGradient2" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <path d="M 256,50 L 136,70 L 256,90" stroke="url(#whiteGradient2)" stroke-width="3" fill="none" class="ray-path"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Orbital Rings -->
+    <div class="orbital-ring ring1"></div>
+    <div class="orbital-ring ring2"></div>
+
+    <!-- Page Header -->
+    <div class="projects-page-header">
+        <div>
+            <a href="index.html#about" class="back-btn">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M19 12H5M12 5l-7 7 7 7"/>
+                </svg>
+                Back to Portfolio
+            </a>
+            <a href="Experience_Page.html" class="back-btn">
+    View Experience
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+</a>
+        </div>
+        <h1 class="page-title">Projects</h1>
+        <p class="page-subtitle">A collection of things I've built</p>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid">
+
+         <a href="BMW-Sales-project.html" class="project-tile">
+            <img src="./BMW sales/project_cover.jpeg" alt="BMW Sales" class="tile-image">
+            <div class="tile-body">
+                <div class="tile-title">BMW Sales Dashboard</div>
+                <div class="tile-desc">End-to-end Power BI dashboard transforming raw sales data into actionable insights.</div>
+                <div class="tile-tags">
+                    <span class="tile-tag">Power BI</span>
+                    <span class="tile-tag">Excel</span>
+                </div>
+            </div>
+        </a>
+
+         <a href="Uber-Rides-project.html" class="project-tile">
+            <img src="./Uber Sales/project_coverpage.jpeg" alt="Uber Sales" class="tile-image">
+            <div class="tile-body">
+                <div class="tile-title">Uber Sales</div>
+                <div class="tile-desc">Interactive Power BI dashboard uncovering operational performance, behavior patterns, and revenue trends.</div>
+                <div class="tile-tags">
+                    <span class="tile-tag">Power BI</span>
+                    <span class="tile-tag">Excel</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="Snowflake-pipeline-project.html" class="project-tile">
+            <img src="./Snowflake pipeline/project_cover.jpeg" alt="Snowflake Project" class="tile-image">
+            <div class="tile-body">
+                <div class="tile-title">End to End Snowflake ELT Pipeline</div>
+                <div class="tile-desc">End-to-end JSON ingestion and SQL transformation into analysis-ready dimensional models.</div>
+                <div class="tile-tags">
+                    <span class="tile-tag">Snowflake</span>
+                </div>
+            </div>
+        </a>
+
+         <a href="capstone-project.html" class="project-tile">
+            <img src="./Gen AI Data project files/preview.png" alt="GEN AI Project" class="tile-image">
+            <div class="tile-body">
+                <div class="tile-title">Synthetic Image Generation using MoE and LoRA</div>
+                <div class="tile-desc">Fine-tuned Stable Diffusion on 5,000+ car damage images to generate synthetic training data at scale.</div>
+                <div class="tile-tags">
+                    <span class="tile-tag">Python</span>
+                    <span class="tile-tag">Excel</span>
+                    <span class="tile-tag">Tableau</span>
+                </div>
+            </div>
+        </a>
+
+         <a href="MBTI-project.html" class="project-tile">
+            <img src="./MBTI/cover picture.jpg" alt="MBTI Project" class="tile-image">
+            <div class="tile-body">
+                <div class="tile-title">Personality Type Classification using ML</div>
+                <div class="tile-desc">ML classification of 16 personality types from survey data, comparing models for optimal predictive accuracy.</div>
+                <div class="tile-tags">
+                    <span class="tile-tag">Python</span>
+                    <span class="tile-tag">Excel</span>
+                </div>
+            </div>
+        </a>
+
+         <a href="College-Analytics-project.html" class="project-tile">
+            <img src="./College Analytics/cover picture" alt="MBTI Project" class="tile-image">
+            <div class="tile-body">
+                <div class="tile-title">College & Program Analytics Dashboard</div>
+                <div class="tile-desc">Power BI dashboards exploring college profiles across enrollment, faculty, satisfaction, and rankings.</div>
+                <div class="tile-tags">
+                    <span class="tile-tag">Power BI</span>
+                    <span class="tile-tag">Excel</span>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    <script>
+        // Generate starfield
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = Math.random() * 3 + 2 + 's';
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+            starfield.appendChild(star);
+        }
+    </script>
+</body>
+</html>
